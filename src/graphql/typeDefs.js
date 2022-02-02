@@ -1,29 +1,11 @@
-import { gql } from "apollo-server";
+import { mergeTypeDefs } from "@graphql-tools/merge";
+import { loadFilesSync } from "@graphql-tools/load-files";
+import path from "path";
 
-const schema = gql`
-  type User {
-    _id: ID!
-    name: String!
-    email: String!
-    active: Boolean
-  }
+const typesDefsArray = loadFilesSync(
+  path.join(__dirname, "modules", "**", "*.gql")
+);
 
-  type Post {
-    _id: ID!
-    author: User!
-    title: String!
-    content: String!
-  }
+const typeDefs = mergeTypeDefs(typesDefsArray);
 
-  type Query {
-    hello: String
-    users: [User!]!
-    getUserByEmail(email: String!): User
-  }
-
-  type Mutation {
-    createUser(_id: ID!, name: String!, email: String!): User!
-  }
-`;
-
-export default schema;
+export default typeDefs;

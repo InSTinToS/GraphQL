@@ -4,12 +4,15 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon --exec babel-node src/index.js"
+    "dev": "nodemon --exec babel-node src/index.js -e js,gql"
   },
   "dependencies": {
+    "@graphql-toolkit/schema-merging": "^0.10.7",
+    "@graphql-tools/load-files": "^6.5.3",
     "apollo-server": "^3.6.2",
     "dotenv": "^15.0.0",
     "graphql": "^16.3.0",
+    "graphql-subscriptions": "^2.0.0",
     "mongoose": "^6.1.10"
   },
   "devDependencies": {

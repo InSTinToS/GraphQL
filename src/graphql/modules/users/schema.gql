@@ -1,0 +1,37 @@
+#? Interfaces dos dados
+type User {
+  _id: ID!
+  active: Boolean!
+  lastName: String!
+  firstName: String!
+  fullName: String!
+  email: String
+}
+
+#? Mesma coisa que type usado apenas para parâmetros recebidos
+input UserInput {
+  active: Boolean!
+  lastName: String!
+  firstName: String!
+  email: String
+}
+
+#! Query e Mutation devem possuir nomes únicos pois irão se juntar
+#! com todas as outras posteriormente
+#? Pesquisas GET
+type Query {
+  users: [User!]!
+  user(id: ID!): User
+}
+
+#? Alteração de dados POST-PATCH-PUT-DELETE
+type Mutation {
+  createUser(data: UserInput!): User!
+  updateUser(id: ID!, data: UserInput!): User!
+  deleteUser(id: ID!): Boolean!
+}
+
+#? Real-time
+type Subscription {
+  newSub: User!
+}

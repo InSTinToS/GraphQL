@@ -1,37 +1,12 @@
-const users = [
-  {
-    _id: "1",
-    name: "Miguel",
-    email: "miguel@miguel.com",
-  },
-  {
-    _id: "2",
-    name: "Miguel 2",
-    email: "miguel2@miguel.com",
-  },
-  {
-    _id: "3",
-    name: "Miguel 3",
-    email: "miguel3@miguel.com",
-  },
-];
+import { mergeResolvers } from "@graphql-tools/merge";
+import { loadFilesSync } from "@graphql-tools/load-files";
 
-const resolvers = {
-  Query: {
-    hello: () => "Hello World",
-    users: () => users,
-    getUserByEmail: (_, args) =>
-      users.find(({ email }) => email === args.email),
-  },
-  Mutation: {
-    createUser: (_, { _id, name, email }) => {
-      const newUser = { _id, name, email };
+import path from "path";
 
-      users.push(newUser);
+const resolversArray = loadFilesSync(
+  path.join(__dirname, "modules", "**", "resolvers.js")
+);
 
-      return newUser;
-    },
-  },
-};
+const resolvers = mergeResolvers(resolversArray);
 
 export default resolvers;
